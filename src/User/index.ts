@@ -9,6 +9,7 @@ const routes = () => {
     router.get("/", UserController.listUser);
     router.put("/update/:id", UserController.update)
     router.delete("/delete/:id", UserController.remove)
+    router.patch("/patch/:id",UserController.patch)
     return router;
 }
 

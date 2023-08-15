@@ -36,5 +36,10 @@ export const remove = (req: Request, res:Response) => {
     }
 }
 
-
-
+export const patch = (req:Request, res:Response) => {
+    try{
+        res.status(201).json(UserService.patch(Number(req.params.id),req.body))
+    }catch(e){
+        res.status(500).json(e)
+    }
+}

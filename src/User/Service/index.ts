@@ -39,4 +39,13 @@ export const remove = (index:number) => {
     }
 }
 
+export const patch = (index:number,value:Partial<IUser>) => {
+    try{
+
+        return UserRepository.patch(index,value)
+    }catch(e){
+        console.log(e);
+        
+    }
+}
 

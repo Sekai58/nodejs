@@ -36,4 +36,11 @@ export const update = (index: number, value: IUser) => {
     }
 }
 
-
+export const patch = (index: number, value: Partial<IUser>) => {
+    try {
+        User = User.map((user, ind) => ind === index ? {...user,...value} : user);
+        return "User updated successfully"
+    } catch (e) {
+        return e
+    }
+}
