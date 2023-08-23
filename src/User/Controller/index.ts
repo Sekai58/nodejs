@@ -43,3 +43,21 @@ export const patch = (req:Request, res:Response) => {
         res.status(500).json(e)
     }
 }
+
+export const getBooks = (req:Request,res:Response)=>{
+    try{
+        res.status(201).json(UserService.getBooks(req.body))
+    }
+    catch(e){
+        res.status(500).json(e)
+    }
+}
+
+export const setBook = (req:Request,res:Response)=>{
+    try{
+        res.status(201).json(UserService.setBook(req.body))
+    }
+    catch(e){
+        res.status(500).json(e)
+    }
+}

@@ -1,5 +1,5 @@
 import * as UserRepository from '../Repository'
-import { IUser } from '../Repository/User.types'
+import { IUser, ITitle, IBook } from '../Repository/User.types'
 
 export const create = (user:IUser) => {
     try{
@@ -46,6 +46,24 @@ export const patch = (index:number,value:Partial<IUser>) => {
     }catch(e){
         console.log(e);
         
+    }
+}
+
+export const getBooks =(title:Partial<ITitle>)=>{
+    try{
+        return UserRepository.getBooks(title)
+    }
+    catch(e){
+        console.log(e)
+    }
+}
+
+export const setBook = (book:IBook)=>{
+    try{
+        return UserRepository.setBook(book)
+    }
+    catch(e){
+        console.log(e)
     }
 }
 
