@@ -28,8 +28,23 @@ app.post("/api/login",(req:Request,res:Response)=>{
     console.log(req.body)
 })
 
-app.get("/", (req: Request, res:Response) => {
-    res.send("Hello! Welcome to home page")
+app.post("/api/bookissue",(req:Request,res:Response)=>{
+    const {id,name,email,gender,book,dateField} = req.body;
+    if(id==="1234567890"){
+        res.status(201).json("Book has been issued")
+    }
+    else{
+        res.status(401).json("Student record not found")
+    }
+    console.log(req.body)
+})
+
+// app.delete("/", (req: Request, res:Response) => {
+//     res.send(req.body)
+// })
+
+app.get("/",(req,res)=>{
+    res.json("hi there")
 })
 
 app.use("/user", userRoutes())

@@ -61,3 +61,39 @@ export const setBook = (req:Request,res:Response)=>{
         res.status(500).json(e)
     }
 }
+
+export const deleteBook =(req:Request,res:Response)=>{
+    try{
+        res.status(201).json(UserService.deleteBook(req.body))
+    }
+    catch(e){
+        res.status(500).json(e)
+    }
+}
+
+export const updateBook = (req:Request,res:Response)=>{
+    try{
+        res.status(201).json(UserService.updateBook(req.body))
+    }
+    catch(e){
+        res.status(500).json(e)
+    }
+}
+
+export const loginUser = async (req:Request,res:Response)=>{
+    try{
+        res.status(201).json(await UserService.loginUser(req.body))
+    }
+    catch(e){
+        res.status(500).json(e)
+    }
+}
+
+export const registerUser = async (req:Request,res:Response)=>{
+    try{
+        res.status(201).json(await UserService.registerUser(req.body))
+    }
+    catch(e){
+        res.status(500).json(e)
+    }
+}

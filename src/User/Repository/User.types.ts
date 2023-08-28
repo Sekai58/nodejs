@@ -1,3 +1,5 @@
+import {ObjectId } from 'mongodb';
+
 export enum IGender{
     'MALE',
     'FEMALE'
@@ -25,4 +27,27 @@ export interface IBook{
     description?:string,
     author_id:string
     genre?:IGenre
+}
+
+export interface IIssueBook{
+    id:number,
+    name:string,
+    email:string,
+    gender:string,
+    book:string,
+    dateField:Date
+}
+
+export interface IUpdate{
+    query:Partial<IBook>
+    update:Partial<IBook>
+}
+
+export interface IUsers{
+    firstName:string,
+    lastName:string,
+    userName:string,
+    email:string,
+    password:string,
+    role:ObjectId
 }

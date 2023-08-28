@@ -12,6 +12,10 @@ const routes = () => {
     router.patch("/patch/:id",UserController.patch)
     router.get("/api/connect",UserController.getBooks)
     router.post("/api/add",UserController.setBook)
+    router.delete("/api/delete",UserController.deleteBook)
+    router.put("/api/update",UserController.updateBook)
+    router.post("/api/user/register",UserController.registerUser)
+    router.post("/api/user/login",UserController.loginUser)
     return router;
 }
 

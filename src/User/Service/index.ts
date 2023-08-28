@@ -1,5 +1,5 @@
 import * as UserRepository from '../Repository'
-import { IUser, ITitle, IBook } from '../Repository/User.types'
+import { IUser, ITitle, IBook, IUpdate, IUsers } from '../Repository/User.types'
 
 export const create = (user:IUser) => {
     try{
@@ -67,3 +67,38 @@ export const setBook = (book:IBook)=>{
     }
 }
 
+export const deleteBook =(book:Partial<IBook>)=>{
+    try{
+        return UserRepository.deleteBook(book)
+    }
+    catch(e){
+        console.log(e)
+    }
+}
+
+export const updateBook=(book:IUpdate)=>{
+    try{
+        return UserRepository.updateBook(book)
+    }
+    catch(e){
+        console.log(e)
+    }
+}
+
+export const loginUser = (user:Partial<IUsers>)=>{
+    try{
+        return UserRepository.loginUser(user)
+    }
+    catch(e){
+        console.log(e)
+    }
+}
+
+export const registerUser = (user:Partial<IUsers>)=>{
+    try{
+        return UserRepository.registerUser(user)
+    }
+    catch(e){
+        console.log(e)
+    }
+}
