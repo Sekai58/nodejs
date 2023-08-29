@@ -4,6 +4,7 @@ import bodyParser from 'body-parser'
 import cors from "cors"
 import userRoutes from './User'
 const { MongoClient } = require("mongodb");
+import { IUser } from './User/Repository/User.types'
 
 dotenv.config()
 const app:Express = express()
@@ -43,7 +44,9 @@ app.post("/api/bookissue",(req:Request,res:Response)=>{
 //     res.send(req.body)
 // })
 
-app.get("/",(req,res)=>{
+app.post("/api/test",(req:Request,res:Response)=>{
+    const newUser:IUser = {...req.body}
+    console.log(newUser.name)
     res.json("hi there")
 })
 

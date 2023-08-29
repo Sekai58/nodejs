@@ -1,6 +1,6 @@
 import * as UserRepository from '../Repository'
 import { IUser, ITitle, IBook, IUpdate, IUsers } from '../Repository/User.types'
-
+//business logic
 export const create = (user:IUser) => {
     try{
         return UserRepository.create(user)
@@ -97,6 +97,15 @@ export const loginUser = (user:Partial<IUsers>)=>{
 export const registerUser = (user:Partial<IUsers>)=>{
     try{
         return UserRepository.registerUser(user)
+    }
+    catch(e){
+        console.log(e)
+    }
+}
+
+export const authUser = (user:Partial<IUsers>)=>{
+    try{
+        return UserRepository.authUser(user)
     }
     catch(e){
         console.log(e)

@@ -1,7 +1,8 @@
 import { ObjectId } from "mongodb";
 import { IBook, ITitle, IUpdate, IUser, IUsers } from "./User.types"
 const { MongoClient } = require("mongodb");
-
+const jwt = require("jsonwebtoken")
+//connection to database
 let User: IUser[] = []
 
 const uri = "mongodb+srv://fellow:yvq1V3UUdLwvlaEz@webdevelopment.tuy8pst.mongodb.net/";
@@ -137,13 +138,25 @@ export const loginUser= async(user:Partial<IUsers>)=>{
         const users = database.collection('users')
         const data = await users.findOne(user)
         if(data){
+            const user = {"userName":data.userName}
+            const token = jwt.sign(user,process.env.SECRET_KEY)
+            console.log("this is token",token,{"userName":data.userName})
             console.log(JSON.stringify(data))
-            return "Login Successful"
+            return ({token})
         }
         else{
             console.log("User does not exist")
             throw new Error("User does not exist")
         }
+    }
+    catch(e){
+        return e
+    }
+}
+
+export const authUser= async(user:Partial<IUsers>)=>{
+    try{
+        return "Login tested"
     }
     catch(e){
         return e

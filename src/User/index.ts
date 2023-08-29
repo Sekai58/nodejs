@@ -1,6 +1,8 @@
 import { Router } from "express";
+const jwt = require("jsonwebtoken")
 
 import * as UserController from './Controller'
+import {verifyJwt} from "./Middleware";
 
 const router = Router();
 
@@ -16,6 +18,7 @@ const routes = () => {
     router.put("/api/update",UserController.updateBook)
     router.post("/api/user/register",UserController.registerUser)
     router.post("/api/user/login",UserController.loginUser)
+    router.post("/api/user/auth",verifyJwt,UserController.authUser)
     return router;
 }
 
