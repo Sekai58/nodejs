@@ -43,17 +43,12 @@ app.post("/api/test",(req:Request,res:Response)=>{
 
 app.use("/user", userRoutes())
 
-// app.use("*",(err:Error,req:Request,res:Response,next:NextFunction)=>{
-//     console.log("reached the middleware for error handling",err.message)
-//     //res.sendStatus(500).json("testing error middleware")
-//     next()
-// })
 
 app.all("*", (req: Request, res:Response) => {
     res.send("Path not found")
 })
 
-app.use("*",errorHandler)
+app.use(errorHandler)
 
 app.listen(process.env.PORT, () => {
     console.log(`server is running at port http://localhost:${process.env.PORT}`);

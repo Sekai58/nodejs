@@ -82,7 +82,7 @@ export const updateBook = (req:Request,res:Response)=>{
 
 export const loginUser = async (req:Request,res:Response,next:NextFunction)=>{
     try{
-        return await UserService.loginUser(req.body)
+        res.status(201).json(await UserService.loginUser(req.body))
     }
     catch(e:any){
        console.log("controller error catch",e)

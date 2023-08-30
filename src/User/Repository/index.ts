@@ -132,21 +132,10 @@ export const registerUser = async(user:Partial<IUsers>)=>{
 
 export const loginUser= async(user:Partial<IUsers>)=>{
     try{
-        const users = database.collection('usersd')
+        const users = database.collection('users')
         const data = await users.findOne({"userName":user.userName})
-        console.log(user.userName,user.password)
-        if(data && user.password===data.password){
-            const user = {"userName":data.userName}
-            const token = jwt.sign(user,process.env.SECRET_KEY)
-            console.log("this is token",token,{"userName":data.userName})
-            console.log(JSON.stringify(data))
-            return ({token})
-        }
-        else{
-            const error = new Error("User does not exist")
-            error.name = '401'
-            throw error
-        }
+        console.log("At repo",data)
+        return data
     }
     catch(e){
         console.log('catch', e);
