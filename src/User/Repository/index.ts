@@ -108,36 +108,34 @@ export const updateBook = async(book:IUpdate)=>{
 
 export const registerUser = async(user:Partial<IUsers>)=>{
     try{
-        //console.log("reached here")
         const users = database.collection('users')
         const roles = database.collection('roles')
-        //console.log(roles)
         const assignRole = await roles.findOne({"name":"ADMIN"})
         const userRole = {...user,role: assignRole._id}
-        console.log(userRole,userRole.email)
         const checkEmail = await users.findOne({"email":userRole.email})
-        console.log(checkEmail)
         if(checkEmail){
-            console.log("Email already used")
-            return "User exits"
+            const error = new Error("User already exists")
+            error.name = '409'
+            throw error
         }
         else{
             const insertedUser = await users.insertOne(userRole)
-            console.log(JSON.stringify(insertedUser))
-            console.log( `A user was inserted with the _id: ${insertedUser.insertedId}`);
+            //console.log( `A user was inserted with the _id: ${insertedUser.insertedId}`);
             return (JSON.stringify(insertedUser))
         }
     }
     catch(e){
-        return e
+        throw e
+        //return e
     }
 }
 
 export const loginUser= async(user:Partial<IUsers>)=>{
     try{
-        const users = database.collection('users')
-        const data = await users.findOne(user)
-        if(data){
+        const users = database.collection('usersd')
+        const data = await users.findOne({"userName":user.userName})
+        console.log(user.userName,user.password)
+        if(data && user.password===data.password){
             const user = {"userName":data.userName}
             const token = jwt.sign(user,process.env.SECRET_KEY)
             console.log("this is token",token,{"userName":data.userName})
@@ -145,18 +143,21 @@ export const loginUser= async(user:Partial<IUsers>)=>{
             return ({token})
         }
         else{
-            console.log("User does not exist")
-            throw new Error("User does not exist")
+            const error = new Error("User does not exist")
+            error.name = '401'
+            throw error
         }
     }
     catch(e){
-        return e
+        console.log('catch', e);
+        throw e
     }
 }
 
-export const authUser= async(user:Partial<IUsers>)=>{
+export const authUser= async(user:Partial<IUsers>,decoded:any)=>{
     try{
-        return "Login tested"
+        console.log(decoded)
+        return decoded
     }
     catch(e){
         return e

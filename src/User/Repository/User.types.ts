@@ -51,3 +51,9 @@ export interface IUsers{
     password:string,
     role:ObjectId
 }
+
+// export interface IError extends Error{
+//     error:Error,
+//     status:number
+// }
+

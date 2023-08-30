@@ -1,22 +1,17 @@
-import express, { Express, Request, Response } from 'express'
+import express, { Express, NextFunction, Request, Response } from 'express'
 import dotenv from 'dotenv'
 import bodyParser from 'body-parser'
 import cors from "cors"
 import userRoutes from './User'
 const { MongoClient } = require("mongodb");
 import { IUser } from './User/Repository/User.types'
+import { errorHandler } from './User/Middleware/error'
 
 dotenv.config()
 const app:Express = express()
 
 app.use(bodyParser.json())
 app.use(cors())
-
-// app.get("/api/connect",(req,res)=>{
-//     const uri = "mongodb+srv://fellow:yvq1V3UUdLwvlaEz@webdevelopment.tuy8pst.mongodb.net/";
-//     const client = new MongoClient(uri);
-//     res.send("successs")
-// })
 
 app.post("/api/login",(req:Request,res:Response)=>{
     const { username, password } = req.body;
@@ -40,10 +35,6 @@ app.post("/api/bookissue",(req:Request,res:Response)=>{
     console.log(req.body)
 })
 
-// app.delete("/", (req: Request, res:Response) => {
-//     res.send(req.body)
-// })
-
 app.post("/api/test",(req:Request,res:Response)=>{
     const newUser:IUser = {...req.body}
     console.log(newUser.name)
@@ -52,11 +43,19 @@ app.post("/api/test",(req:Request,res:Response)=>{
 
 app.use("/user", userRoutes())
 
+// app.use("*",(err:Error,req:Request,res:Response,next:NextFunction)=>{
+//     console.log("reached the middleware for error handling",err.message)
+//     //res.sendStatus(500).json("testing error middleware")
+//     next()
+// })
+
 app.all("*", (req: Request, res:Response) => {
     res.send("Path not found")
 })
 
+app.use("*",errorHandler)
+
 app.listen(process.env.PORT, () => {
     console.log(`server is running at port http://localhost:${process.env.PORT}`);
-    
+
 })

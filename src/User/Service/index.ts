@@ -15,13 +15,11 @@ export const list = () => {
         return UserRepository.list()
     }catch(e){
         console.log(e);
-        
     }
 }
 
 export const update = (index:number, value: IUser) => {
     try{
-
         return UserRepository.update(index, value)
     }catch(e){
         console.log(e);
@@ -85,27 +83,29 @@ export const updateBook=(book:IUpdate)=>{
     }
 }
 
-export const loginUser = (user:Partial<IUsers>)=>{
+export const loginUser = async (user:Partial<IUsers>)=>{
     try{
-        return UserRepository.loginUser(user)
+        return await UserRepository.loginUser(user)
     }
     catch(e){
-        console.log(e)
+        console.log('service',e)
+        throw e
     }
 }
 
-export const registerUser = (user:Partial<IUsers>)=>{
+export const registerUser = async (user:Partial<IUsers>)=>{
     try{
-        return UserRepository.registerUser(user)
+        return await UserRepository.registerUser(user)
     }
     catch(e){
         console.log(e)
+        throw e
     }
 }
 
-export const authUser = (user:Partial<IUsers>)=>{
+export const authUser = (user:Partial<IUsers>,decoded:any)=>{
     try{
-        return UserRepository.authUser(user)
+        return UserRepository.authUser(user,decoded)
     }
     catch(e){
         console.log(e)

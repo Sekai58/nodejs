@@ -1,8 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-//import dotenv from 'dotenv'
 import jwt from "jsonwebtoken"
 
-//dotenv.config()
 export const verifyJwt = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader?authHeader:null
@@ -14,6 +12,6 @@ export const verifyJwt = (req: Request, res: Response, next: NextFunction) => {
     console.log(decoded)
     if (err) return res.status(403).json("Unauthorized")
     req.user = decoded;
-    next()
+    next()//can directly send user as argument to next 
   })
 };
